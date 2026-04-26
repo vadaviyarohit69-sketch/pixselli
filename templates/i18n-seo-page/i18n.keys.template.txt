@@ -1,0 +1,9 @@
+// Add to EN dictionary in lib/i18n.ts
+"__I18N_PREFIX__.title": "__TITLE_EN__",
+"__I18N_PREFIX__.description": "__DESC_EN__",
+"__I18N_PREFIX__.cta": "Try now",
+
+// Add to ES dictionary in lib/i18n.ts
+"__I18N_PREFIX__.title": "__TITLE_ES__",
+"__I18N_PREFIX__.description": "__DESC_ES__",
+"__I18N_PREFIX__.cta": "Probar ahora",

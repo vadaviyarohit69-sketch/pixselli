@@ -1,0 +1,33 @@
+import type { Metadata } from "next";
+import { metadata as baseMetadata } from "@/app/__SLUG__/layout";
+
+export const metadata: Metadata = {
+  ...baseMetadata,
+  title: "__TITLE_ES__",
+  description: "__DESC_ES__",
+  alternates: {
+    ...baseMetadata.alternates,
+    canonical: "https://pixselli.com/es/__SLUG__",
+    languages: {
+      en: "https://pixselli.com/__SLUG__",
+      es: "https://pixselli.com/es/__SLUG__",
+      "x-default": "https://pixselli.com/__SLUG__",
+    },
+  },
+  openGraph: {
+    ...baseMetadata.openGraph,
+    title: "__TITLE_ES__",
+    description: "__DESC_ES__",
+    url: "https://pixselli.com/es/__SLUG__",
+    locale: "es_ES",
+  },
+  twitter: {
+    ...baseMetadata.twitter,
+    title: "__TITLE_ES__",
+    description: "__DESC_ES__",
+  },
+};
+
+export default function SpanishLayout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
+}

@@ -1,0 +1,8 @@
+import type { Metadata } from 'next';
+import { getBlogIndexMetadata } from '@/lib/blogMetadata';
+
+export const metadata: Metadata = getBlogIndexMetadata('fr');
+
+export default function FrBlogLayout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
+}

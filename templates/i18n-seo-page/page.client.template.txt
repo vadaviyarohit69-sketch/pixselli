@@ -1,0 +1,44 @@
+"use client";
+
+import Link from "next/link";
+import { useLanguage } from "@/components/LanguageProvider";
+import { localizePath } from "@/lib/i18n";
+
+export default function Page() {
+  const { locale, t } = useLanguage();
+  const isSpanish = locale === "es";
+  const pagePath = isSpanish ? "/es/__SLUG__" : "/__SLUG__";
+  const pageUrl = `https://pixselli.com${pagePath}`;
+
+  const tx = (en: string, es: string) => (isSpanish ? es : en);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: tx("__TITLE_EN__", "__TITLE_ES__"),
+    description: tx("__DESC_EN__", "__DESC_ES__"),
+    url: pageUrl,
+    applicationCategory: "MultimediaApplication",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  };
+
+  return (
+    <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      <nav aria-label={tx("Breadcrumb", "Migas de pan")}> 
+        <Link href={localizePath("/", locale)}>{tx("Home", "Inicio")}</Link>
+      </nav>
+
+      <h1>{t("__I18N_PREFIX__.title")}</h1>
+      <p>{t("__I18N_PREFIX__.description")}</p>
+    </main>
+  );
+}

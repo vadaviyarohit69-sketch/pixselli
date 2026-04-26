@@ -1,0 +1,35 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "__TITLE_EN__",
+  description: "__DESC_EN__",
+  alternates: {
+    canonical: "https://pixselli.com/__SLUG__",
+    languages: {
+      en: "https://pixselli.com/__SLUG__",
+      es: "https://pixselli.com/es/__SLUG__",
+      "x-default": "https://pixselli.com/__SLUG__",
+    },
+  },
+  openGraph: {
+    title: "__TITLE_EN__",
+    description: "__DESC_EN__",
+    url: "https://pixselli.com/__SLUG__",
+    locale: "en_US",
+    type: "website",
+    siteName: "Pixselli",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "__TITLE_EN__",
+    description: "__DESC_EN__",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
+}

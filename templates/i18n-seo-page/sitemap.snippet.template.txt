@@ -1,0 +1,7 @@
+// In app/sitemap.ts
+// Add this slug to your route arrays so both EN and ES URLs are generated:
+"__SLUG__",
+
+// Expected URLs in sitemap output:
+// https://pixselli.com/__SLUG__
+// https://pixselli.com/es/__SLUG__
