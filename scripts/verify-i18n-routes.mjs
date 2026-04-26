@@ -100,15 +100,33 @@ function buildCandidateRoutes(routes) {
   return [...set].sort((a, b) => a.localeCompare(b));
 }
 
-async function checkRoute(route) {
-  const url = `${BASE_URL}${route}`;
-  const res = await fetch(url, { redirect: "manual" });
+function toStaticExportCandidates(route) {
+  const r = normalizeRoute(route);
 
-  if (res.status >= 200 && res.status < 400) {
-    return { ok: true, status: res.status, url };
+  if (r === "/") {
+    return ["/", "/index.html"];
   }
 
-  return { ok: false, status: res.status, url };
+  return [r, `${r}.html`, `${r}/index.html`];
+}
+
+async function checkRoute(route) {
+  const candidates = toStaticExportCandidates(route);
+  let lastResult = null;
+
+  for (let i = 0; i < candidates.length; i += 1) {
+    const candidate = candidates[i];
+    const url = `${BASE_URL}${candidate}`;
+    const res = await fetch(url, { redirect: "manual" });
+
+    if (res.status >= 200 && res.status < 400) {
+      return { ok: true, status: res.status, url, matchedPath: candidate };
+    }
+
+    lastResult = { ok: false, status: res.status, url, matchedPath: candidate };
+  }
+
+  return lastResult || { ok: false, status: "ERR", url: `${BASE_URL}${route}` };
 }
 
 function printSummary(total, failed) {
@@ -162,7 +180,8 @@ async function run() {
     try {
       const result = await checkRoute(route);
       if (!result.ok) failed.push(result);
-      else console.log(`OK  [${result.status}] ${route}`);
+      else
+        console.log(`OK  [${result.status}] ${route} -> ${result.matchedPath}`);
     } catch (err) {
       failed.push({
         ok: false,
